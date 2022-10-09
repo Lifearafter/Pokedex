@@ -8,7 +8,7 @@ export class Stats extends Component {
       return (
         <>
           {this.props.stats.map((stat, index) => {
-            return <div key={index}>{stat.stat.name}</div>;
+            return (<div key={index}>{stat.stat.name}</div>);
           })}
         </>
       );
