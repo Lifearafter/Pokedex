@@ -11,15 +11,16 @@ export class INFO extends Component {
     this.state = {};
   }
   render() {
+    
     return (
       <>
         <ABOUT flavortext={this.props.flavortext}></ABOUT>
         <CHARACTERISTICS
-          abilities={this.state.abilities}
-          height={this.state.height}
-          weight={this.state.weight}
+          abilities={this.props.abilities}
+          height={this.props.height}
+          weight={this.props.weight}
         ></CHARACTERISTICS>
-        <TYPE types={this.state.types}></TYPE>
+        <TYPE types={this.props.types}></TYPE>
       </>
     );
   }
