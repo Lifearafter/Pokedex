@@ -84,7 +84,7 @@ export class Pokedex extends Component {
             weight={this.state.weight}
             types={this.state.types}
           ></INFO>
-          <STATS stats={this.stats}></STATS>
+          <STATS stats={this.state.stats}></STATS>
           <EVOLUTION></EVOLUTION>
         </>
       );

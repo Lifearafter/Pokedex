@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 export class Characteristics extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <>
