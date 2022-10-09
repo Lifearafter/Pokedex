@@ -24,14 +24,12 @@ export class Pokedex extends Component {
   }
 
   componentDidMount() {
-    let request = new XMLHttpRequest();
-    request.open("GET", "https://pokeapi.co/api/v2/pokemon/1", true);
-    request.send();
-    request.onreadystatechange = () => {
-      if (request.readyState === 4) {
-        if (request.status === 200) {
-          let data = JSON.parse(request.responseText);
+    fetch("https://pokeapi.co/api/v2/pokemon/1")
+      .then((res) => res.json())
+      .then(
+        (data) => {
           this.setState({
+
             isLoadedPokeEnd: true,
             abilities: data.abilities,
             id: data.id,
@@ -40,16 +38,12 @@ export class Pokedex extends Component {
             artwork: data.sprites.other["official-artwork"].front_default,
             height: data.height,
             weight: data.weight,
-          });
-          this.setState({ error: null });
-        } else {
+          })
+        },
+        (error) => { 
           this.setState({
             isLoadedPokeEnd: true,
-            error: request.statusText,
-          });
-        }
-      }
-    };
+            error,})})
 
     fetch("https://pokeapi.co/api/v2/pokemon-species/bulbasaur")
       .then((response) => response.json())
