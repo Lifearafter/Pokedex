@@ -3,6 +3,9 @@ import STATS from "./Stats";
 import EVOLUTION from "./Evolution";
 import PIC from "./Pic";
 
+import { average } from "color.js";
+
+import "./Pokedex.css";
 import React, { Component } from "react";
 
 export class Pokedex extends Component {
@@ -20,6 +23,8 @@ export class Pokedex extends Component {
       flavortext: "",
       height: "",
       weight: "",
+      japname: "",
+      color: "",
     };
   }
 
@@ -29,7 +34,6 @@ export class Pokedex extends Component {
       .then(
         (data) => {
           this.setState({
-
             isLoadedPokeEnd: true,
             abilities: data.abilities,
             id: data.id,
@@ -38,12 +42,15 @@ export class Pokedex extends Component {
             artwork: data.sprites.other["official-artwork"].front_default,
             height: data.height,
             weight: data.weight,
-          })
+          });
         },
-        (error) => { 
+        (error) => {
           this.setState({
             isLoadedPokeEnd: true,
-            error,})})
+            error,
+          });
+        }
+      );
 
     fetch("https://pokeapi.co/api/v2/pokemon-species/bulbasaur")
       .then((response) => response.json())
@@ -52,6 +59,8 @@ export class Pokedex extends Component {
           this.setState({
             isLoadedSpeciesEnd: true,
             flavortext: result.flavor_text_entries[0].flavor_text,
+            japname: result.names[0].name,
+            color: result.color.name,
           });
         },
         (error) => {
@@ -63,13 +72,28 @@ export class Pokedex extends Component {
       );
   }
 
+  colorRandomizer(img) {
+    average(img, {format: 'hex'} ).then((err, color) => {
+      if (err) {
+        console.log(err);
+        return "#ffffff";
+      } else {
+        console.log(color);
+        return color;
+      }
+    });
+  
+  }
+
   render() {
     if (
       this.state.isLoadedPokeEnd === true &&
       this.state.isLoadedSpeciesEnd === true
     ) {
+      let color = this.colorRandomizer(this.state.artwork);
+      console.log(color);
       return (
-        <>
+        <div id="dex-container" style={{ backgroundColor: "#41574a" }}>
           <PIC artwork={this.state.artwork}></PIC>
           <INFO
             flavortext={this.state.flavortext}
@@ -80,7 +104,7 @@ export class Pokedex extends Component {
           ></INFO>
           <STATS stats={this.state.stats}></STATS>
           <EVOLUTION></EVOLUTION>
-        </>
+        </div>
       );
     }
   }
