@@ -25,6 +25,7 @@ export class Pokedex extends Component {
       weight: "",
       japname: "",
       color: "",
+      colorbackground: "",
     };
   }
 
@@ -78,8 +79,7 @@ export class Pokedex extends Component {
         console.log(err);
         return "#ffffff";
       } else {
-        console.log(color);
-        return color;
+        this.setState({colorbackground: color});
       }
     });
   
@@ -93,7 +93,7 @@ export class Pokedex extends Component {
       let color = this.colorRandomizer(this.state.artwork);
       console.log(color);
       return (
-        <div id="dex-container" style={{ backgroundColor: "#41574a" }}>
+        <div id="dex-container" style={this.state.backgroundColor}>
           <PIC artwork={this.state.artwork}></PIC>
           <INFO
             flavortext={this.state.flavortext}
