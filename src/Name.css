@@ -1,0 +1,12 @@
+#name-container {
+  font-size: 1.7vh;
+  padding-top: 0.3%;
+  text-shadow: 0.1vh 0.1vh gray;
+}
+#pokeid-container {
+  font-size: 1.1vh;
+  text-shadow: 0.1vh 0.1vh gray;
+}
+#main-container {
+  padding: 1.2%;
+}

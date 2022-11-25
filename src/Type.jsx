@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 export class Type extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <>
