@@ -2,10 +2,10 @@ import INFO from "./Info";
 import STATS from "./Stats";
 import EVOLUTION from "./Evolution";
 import PIC from "./Pic";
+
+import { average } from "color.js";
+
 import "./Pokedex.css";
-
-import NAME from "./Name";
-
 import React, { Component } from "react";
 
 export class Pokedex extends Component {
@@ -17,7 +17,6 @@ export class Pokedex extends Component {
       error: null, // error handling
       abilities: [],
       id: "",
-      name: "",
       stats: [],
       types: [],
       artwork: "",
@@ -44,7 +43,6 @@ export class Pokedex extends Component {
             artwork: data.sprites.other["official-artwork"].front_default,
             height: data.height,
             weight: data.weight,
-            name: data.name,
           });
         },
         (error) => {
@@ -75,25 +73,36 @@ export class Pokedex extends Component {
       );
   }
 
+  colorRandomizer(img) {
+    average(img, {format: 'hex'} ).then((err, color) => {
+      if (err) {
+        console.log(err);
+        return "#ffffff";
+      } else {
+        this.setState({colorbackground: color});
+      }
+    });
+  
+  }
+
   render() {
     if (
       this.state.isLoadedPokeEnd === true &&
       this.state.isLoadedSpeciesEnd === true
     ) {
+      let color = this.colorRandomizer(this.state.artwork);
+      console.log(color);
       return (
-        <div id="dex-container">
-          <NAME name={this.state.name} pokeid={this.state.id}></NAME>
-          <div id="vertical-center-items">
-            <PIC artwork={this.state.artwork}></PIC>
-            <INFO
-              flavortext={this.state.flavortext}
-              abilities={this.state.abilities}
-              height={this.state.height}
-              weight={this.state.weight}
-              types={this.state.types}
-            ></INFO>
-            <STATS stats={this.state.stats}></STATS>
-          </div>
+        <div id="dex-container" style={this.state.backgroundColor}>
+          <PIC artwork={this.state.artwork}></PIC>
+          <INFO
+            flavortext={this.state.flavortext}
+            abilities={this.state.abilities}
+            height={this.state.height}
+            weight={this.state.weight}
+            types={this.state.types}
+          ></INFO>
+          <STATS stats={this.state.stats}></STATS>
           <EVOLUTION></EVOLUTION>
         </div>
       );

@@ -1,6 +1,6 @@
-import ABOUT from "./About.jsx";
-import CHARACTERISTICS from "./Characteristics.jsx";
-import TYPE from "./Type.jsx";
+import ABOUT from "./InfoComponents/About.jsx";
+import CHARACTERISTICS from "./InfoComponents/Characteristics.jsx";
+import TYPE from "./InfoComponents/Type.jsx";
 
 import React, { Component } from "react";
 
